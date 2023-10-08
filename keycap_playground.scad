@@ -1284,7 +1284,7 @@ module handle_render(what, legends) {
             %key_using_globals(legends=legends);
         }
     } else if (what=="stem") {
-        color("white")
+        color("#505050")
         if (KEY_PROFILE == "dsa") {
             DSA_stem(
                 stem_type=STEM_TYPE,
