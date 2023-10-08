@@ -139,6 +139,7 @@ class Keycap(object):
             file_type="3mf",
             openscad_path=Path("/usr/bin/openscad"),
             colorscad_path=Path(""),
+            use_colorscad=True,
             output_path=Path(".")):
         self.name = name
         self.output_path = output_path
@@ -208,18 +209,17 @@ class Keycap(object):
         self.file_type = file_type
         self.keycap_playground_path = keycap_playground_path
         self.colorscad_path = colorscad_path
+        self.use_colorscad = use_colorscad
         self.openscad_path = openscad_path
         # This speeds things up considerably:
         self.openscad_args = "--enable=fast-csg"
 
-    # NOTE: This doesn't seem to work right for unknown reasons so you'll want
-    #       to generate the quote keycap by hand on the command line.
-    def quote(self, legends):
+    def quote(self, legends, with_colorscad = True):
         """
         Checks for the edge case of a single quote (') legend and converts it
         into `"'"'"'"` so that bash will pass it correclty to OpenSCAD via
-        `getstatusoutput()`.  Also covers the slash (\\) legend for
-        completeness.
+        `getstatusoutput()`.  Also covers the double quote (") legend when
+        running with colorscad.
 
         .. note::
 
@@ -230,8 +230,10 @@ class Keycap(object):
         for i, legend in enumerate(legends):
             if legend == "'":
                 out += properly_escaped_quote + ","
-            elif legend == '"':
-                out += r'"\""'
+            elif legend == '"' and with_colorscad:
+                out += r'"\\\"",'
+            elif legend == "\\" and with_colorscad:
+                out += r'"\\\\",'
             else:
                 out += json.dumps(legend) + ","
         out = out.rstrip(',') # Get rid of trailing comma
@@ -260,7 +262,8 @@ class Keycap(object):
         )
         last_part = self.keycap_playground_path
         render = self.render
-        if str(self.colorscad_path): # Use colorscad.sh
+        with_colorscad = False
+        if self.use_colorscad and str(self.colorscad_path): # Use colorscad.sh
             # Check to make sure it actually exists
             if os.path.exists(self.colorscad_path):
                 # Add openscad to the $PATH variable so colorscad can find it
@@ -275,6 +278,7 @@ class Keycap(object):
                 last_part = ""
                 #render = ["keycap", "stem", "legends"]
                 render.append("legends")
+                with_colorscad = True
         # NOTE: Since OpenSCAD requires double quotes I'm using the json module
         #       to encode things that need it:
         return (
@@ -327,7 +331,7 @@ class Keycap(object):
             f"HOMING_DOT_X={self.homing_dot_x}; "
             f"HOMING_DOT_Y={self.homing_dot_y}; "
             f"HOMING_DOT_Z={self.homing_dot_z}; "
-            f"LEGENDS={self.quote(self.legends)}; "
+            f"LEGENDS={self.quote(self.legends, with_colorscad)}; "
             f"LEGEND_FONTS={json.dumps(self.fonts)}; "
             f"LEGEND_FONT_SIZES={self.font_sizes}; "
             f"LEGEND_TRANS={self.trans}; "
