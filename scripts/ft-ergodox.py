@@ -223,6 +223,24 @@ class ergodox_ft_text(ergodox_ft_base):
         self.font_sizes[0] = 4
         self.postinit(**kwargs_copy)
 
+class ergodox_ft_gem(ergodox_ft_base):
+    """
+    Same as base but in GEM profile
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.key_profile = "gem"
+        self.key_rotation = [-108.6,0,180]
+
+class ergodox_ft_gem_front_icon(ergodox_ft_front_icon):
+    """
+    1U with icon front, but in GEM profile
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.key_profile = "gem"
+        self.key_rotation = [-108.6,0,180]
+
 class ergodox_ft_multi(ergodox_ft_base):
     """
     For number row keys and others with multiple legends... ,./;'[]
@@ -494,6 +512,7 @@ KEYCAPS = [
     ergodox_ft_1_5U(name="l_tab", legends=[" ", "Tab", ""]),
     ergodox_ft_base(name="l_Q", legends=["Q", "F6"]),
     ergodox_ft_base(name="l_W", legends=["W", "F7"]),
+    ergodox_ft_gem(name="l_W_gamer", legends=["W", "F7"]),
     ergodox_ft_base(name="l_E", legends=["E", "F8"]),
     ergodox_ft_base(name="l_R", legends=["R", "F9"]),
     ergodox_ft_base(name="l_T", legends=["T", "F10"]),
@@ -513,6 +532,9 @@ KEYCAPS = [
     ergodox_ft_front_icon(name="l_A", legends=["A", "\uf048"]),
     ergodox_ft_front_icon(name="l_S", legends=["S", "\uf027"]),
     ergodox_ft_front_icon(name="l_D", legends=["D", "\uf028"]),
+    ergodox_ft_gem_front_icon(name="l_A_gamer", legends=["A", "\uf048"]),
+    ergodox_ft_gem_front_icon(name="l_S_gamer", legends=["S", "\uf027"]),
+    ergodox_ft_gem_front_icon(name="l_D_gamer", legends=["D", "\uf028"]),
     ergodox_ft_front_icon(name="l_F", legends=["F", "\uf051"],
                           homing_dot=True),
     ergodox_ft_front_icon(name="l_G", legends=["G", "\uf04b \uf04c"]),
