@@ -1,0 +1,5 @@
+deps/*
+fonts/*
+*.gcode
+*.3mf
+**/__pycache__
