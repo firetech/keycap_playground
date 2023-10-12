@@ -132,9 +132,11 @@ class ergodox_ft_base(Keycap):
         self.polygon_layers = 4  # Ditto
         self.stem_height = 4
         self.stem_type = "round_cherry"
-        self.stem_inset = 0.5
+        self.stem_inset = -0.5
         self.stem_walls_inset = 0
-        self.stem_inside_tolerance = 0.175
+        self.stem_inside_tolerance = 0.15
+        self.stem_outside_tolerance_x = -0.25
+        self.stem_outside_tolerance_y = -0.25
         self.stem_side_supports = [0,0,0,0]
         self.stem_locations = [[0,0,0]]
         # Because we do strange things we need legends bigger on the Z
@@ -487,9 +489,6 @@ class ergodox_ft_space(ergodox_ft_base):
         self.stem_locations = [[0,0,0], [12,0,0], [-12,0,0]]
         self.postinit(**kwargs_copy)
 
-# For better fit on my Ergodox Infinity stabilizers
-STAB_STEM_INSET = -0.5
-
 KEYCAPS = [
     # Row 1
     ergodox_ft_1_5U_front_icon(name="l_esc", legends=[" ", "Esc", "", "\uf0e7"]),
@@ -587,9 +586,7 @@ KEYCAPS = [
     ergodox_ft_base(name="l_pgdn", legends=["PgDn", "End"],
                     font_sizes=[3, 3]),
     ergodox_ft_space(name="l_space"),
-    ergodox_ft_space(name="l_space_stab", stem_inset=STAB_STEM_INSET),
     ergodox_ft_enter(name="l_enter", legends=["\uf149"]),
-    ergodox_ft_enter(name="l_enter_stab", legends=["\uf149"], stem_inset=STAB_STEM_INSET),
     ergodox_ft_super(name="l_super", legends=["\uf197", "\uf0c9"]),
     ergodox_ft_text(name="l_alt", legends=["Alt"]),
 
@@ -599,9 +596,7 @@ KEYCAPS = [
     ergodox_ft_base(name="r_end", legends=["End", "PgDn"],
                     font_sizes=[3, 3]),
     ergodox_ft_2UV_icon(name="r_backspace", legends=["\uf55a"]),
-    ergodox_ft_2UV_icon(name="r_backspace_stab", legends=["\uf55a"], stem_inset=STAB_STEM_INSET),
     ergodox_ft_space(name="r_space"),
-    ergodox_ft_space(name="r_space_stab", stem_inset=STAB_STEM_INSET),
     ergodox_ft_icons(name="r_compose", legends=["\uf5ad"],),
     ergodox_ft_text(name="r_alt", legends=["AltGr"], font_sizes=[3]),
 ]
