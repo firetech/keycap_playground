@@ -137,7 +137,7 @@ class ergodox_ft_base(Keycap):
         self.stem_inside_tolerance = 0.15
         self.stem_outside_tolerance_x = -0.25
         self.stem_outside_tolerance_y = -0.25
-        self.stem_side_supports = [0,0,0,0]
+        self.stem_side_supports = [0,0,0,1]
         self.stem_locations = [[0,0,0]]
         # Because we do strange things we need legends bigger on the Z
         self.scale = [
@@ -487,6 +487,7 @@ class ergodox_ft_space(ergodox_ft_base):
         self.key_rotation = [0,113.651,-90]
         self.polygon_layers = 16 # For a smoother top
         self.stem_locations = [[0,0,0], [12,0,0], [-12,0,0]]
+        self.stem_side_supports = [0,1,0,0]
         self.postinit(**kwargs_copy)
 
 KEYCAPS = [
