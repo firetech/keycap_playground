@@ -193,9 +193,9 @@ class ergodox_ft_icons(ergodox_ft_base):
             3.9,
         ]
 
-class ergodox_ft_super(ergodox_ft_icons):
+class ergodox_ft_icons_90top(ergodox_ft_icons):
     """
-    Super needs a rotated icon
+    For 1U with only icons, top icon rotated 90 degrees
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -204,6 +204,19 @@ class ergodox_ft_super(ergodox_ft_icons):
         self.rotation[0] = [0,0,90]
         self.trans2 = [self.trans[0], [0,0,0]]
         self.trans[0] = [0,0,0]
+        self.postinit(**kwargs_copy)
+
+class ergodox_ft_icons_90front(ergodox_ft_icons):
+    """
+    For 1U with only icons, front icon rotated 90 degrees
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        kwargs_copy = deepcopy(kwargs) # Because self.trans[0] updates in place
+        self.rotation2 = [[0,0,0], self.rotation[1]]
+        self.rotation[1] = [0,0,90]
+        self.trans2 = [[0,0,0], self.trans[1]]
+        self.trans[1] = [0,0,0]
         self.postinit(**kwargs_copy)
 
 class ergodox_ft_front_icon(ergodox_ft_base):
@@ -583,20 +596,16 @@ KEYCAPS = [
     ergodox_ft_text(name="r_ctrl", legends=["Ctrl"]),
 
     # Left thumb cluster
-    ergodox_ft_base(name="l_pgup", legends=["PgUp", "Home"],
-                    font_sizes=[3, 3]),
-    ergodox_ft_base(name="l_pgdn", legends=["PgDn", "End"],
-                    font_sizes=[3, 3]),
+    ergodox_ft_icons_90front(name="l_pgup", legends=["\uf574", "\ue4c2"]),
+    ergodox_ft_icons_90front(name="l_pgdn", legends=["\uf56d", "\ue4b8"]),
     ergodox_ft_space(name="l_space"),
     ergodox_ft_enter(name="l_enter", legends=["\uf3be"]),
-    ergodox_ft_super(name="l_super", legends=["\uf197", "\uf0c9"]),
+    ergodox_ft_icons_90top(name="l_super", legends=["\uf197", "\uf0c9"]),
     ergodox_ft_text(name="l_alt", legends=["Alt"]),
 
     # Right thumb cluster
-    ergodox_ft_base(name="r_home", legends=["Home", "PgUp"],
-                    font_sizes=[3, 3]),
-    ergodox_ft_base(name="r_end", legends=["End", "PgDn"],
-                    font_sizes=[3, 3]),
+    ergodox_ft_icons_90top(name="r_home", legends=["\ue4c2", "\uf574"]),
+    ergodox_ft_icons_90top(name="r_end", legends=["\ue4b8", "\uf56d"]),
     ergodox_ft_2UV_icon(name="r_backspace", legends=["\uf55a"]),
     ergodox_ft_space(name="r_space"),
     ergodox_ft_icons(name="r_compose", legends=["\uf5ad"],),
