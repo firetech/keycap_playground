@@ -124,8 +124,8 @@ class ergodox_ft_base(Keycap):
         self.render = ["keycap", "stem"]
         self.file_type = FILE_TYPE
         self.key_profile = "riskeycap"
-        self.key_rotation = [-110.1,0,180]
-        self.wall_thickness = 0.45*2.25
+        self.key_rotation = [110.1,0,0]
+        self.wall_thickness = 0.45*2.7
         self.uniform_wall_thickness = True
         self.dish_thickness = 1.0 # Note: Not actually used
         self.dish_corner_fn = 40 # Save some rendering time
@@ -137,7 +137,7 @@ class ergodox_ft_base(Keycap):
         self.stem_inside_tolerance = 0.15
         self.stem_outside_tolerance_x = -0.25
         self.stem_outside_tolerance_y = -0.25
-        self.stem_side_supports = [0,0,0,1]
+        self.stem_side_supports = [0,0,1,0]
         self.stem_locations = [[0,0,0]]
         # Because we do strange things we need legends bigger on the Z
         self.scale = [
@@ -153,12 +153,12 @@ class ergodox_ft_base(Keycap):
             3.5, # Front
         ]
         self.trans = [
-            [0,2.6,0], # Center
+            [0,-2.6,0], # Center
             [0.15,-2,2], # Front
         ]
         # Legend rotation
         self.rotation = [
-            [20,0,0], # Center
+            [-20,0,0], # Center
             [68,0,0], # Front
         ]
         # Homing dot (set homing_dot=True to enable)
@@ -232,7 +232,7 @@ class ergodox_ft_gem(ergodox_ft_base):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.key_profile = "gem"
-        self.key_rotation = [-108.6,0,180]
+        self.key_rotation = [108.6,0,0]
 
 class ergodox_ft_gem_front_icon(ergodox_ft_front_icon):
     """
@@ -241,7 +241,7 @@ class ergodox_ft_gem_front_icon(ergodox_ft_front_icon):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.key_profile = "gem"
-        self.key_rotation = [-108.6,0,180]
+        self.key_rotation = [108.6,0,0]
 
 class ergodox_ft_multi(ergodox_ft_base):
     """
@@ -262,15 +262,15 @@ class ergodox_ft_multi(ergodox_ft_base):
             3.5, # Front legend
         ]
         self.trans = [
-            [-2.6,2.6,0], # Left
-            [0,2.6,0], # Center
-            [2.6,2.6,0], # Right
+            [-2.6,-2.6,0], # Left
+            [0,-2.6,0], # Center
+            [2.6,-2.6,0], # Right
             [0.15,-2,2], # F-key
         ]
         self.rotation = [
-            [20,0,0],
-            [20,0,0],
-            [20,0,0],
+            [-20,0,0],
+            [-20,0,0],
+            [-20,0,0],
             [68,0,0],
         ]
         self.scale = [
@@ -375,7 +375,7 @@ class ergodox_ft_1_5U(ergodox_ft_multi):
         super().__init__(**kwargs)
         kwargs_copy = deepcopy(kwargs)
         self.key_length = KEY_UNIT*1.5-BETWEENSPACE
-        self.key_rotation = [-109.335,0,180]
+        self.key_rotation = [109.335,0,0]
         self.postinit(**kwargs_copy)
 
 class ergodox_ft_1_5U_front_icon(ergodox_ft_1_5U):
@@ -414,7 +414,7 @@ class ergodox_ft_1_5UV(ergodox_ft_base):
         super().__init__(**kwargs)
         kwargs_copy = deepcopy(kwargs) # Because self.trans[0] updates in place
         self.key_width = KEY_UNIT*1.5-BETWEENSPACE
-        self.key_rotation = [-110.095,0,180]
+        self.key_rotation = [110.095,0,0]
         self.trans[1] = [0,0,-0.65]
         self.postinit(**kwargs_copy)
 
@@ -426,7 +426,7 @@ class ergodox_ft_lbracket(ergodox_ft_multi):
         super().__init__(**kwargs)
         kwargs_copy = deepcopy(kwargs) # Because self.trans[0] updates in place
         self.key_width = KEY_UNIT*1.5-BETWEENSPACE
-        self.key_rotation = [-110.095,0,180]
+        self.key_rotation = [110.095,0,0]
         self.fonts[3] = "Font Awesome 6 Free:style=Solid"
         self.font_sizes[3] = 3.9
         self.trans[3] = [0,0,-0.65]
@@ -449,34 +449,37 @@ class ergodox_ft_rbracket(ergodox_ft_lbracket):
 class ergodox_ft_2UV_icon(ergodox_ft_base):
     """
     The base for 2U vertical keys with icon legends (Enter and Backspace)
+    Hackishly using a rotated horizontal 2U key due to a stem support bug
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         kwargs_copy = deepcopy(kwargs) # Because self.trans[0] updates in place
-        self.key_width = KEY_UNIT*2-BETWEENSPACE
-        self.key_rotation = [-110.095,0,180]
-        self.stem_locations = [[0,0,0], [0,12,0], [0,-12,0]]
-        self.trans[1] = [0,0,-2.8]
+        self.key_length = KEY_UNIT*2-BETWEENSPACE
+        self.key_rotation = [0,-110.095,90]
+        self.stem_locations = [[0,0,0], [12,0,0], [-12,0,0]]
+        self.rotation2 = self.rotation
+        self.rotation = [[0,0,-90]]
+        self.trans, self.trans2 = self.trans2, self.trans
+        self.trans2[1] = [0,0,-2.8]
         self.fonts = ["Font Awesome 6 Free:style=Solid"]
         self.font_sizes = [5]
+        self.stem_side_supports = [1,0,0,0]
         self.postinit(**kwargs_copy)
 
 class ergodox_ft_enter(ergodox_ft_2UV_icon):
     """
-    Enter key needs its icon rotated
+    Enter key needs its icon rotated more
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         kwargs_copy = deepcopy(kwargs) # Because self.trans[0] updates in place
-        # Rotate "arrow-turn-down" 90 degrees clockwise
-        self.rotation2 = self.rotation
-        self.rotation = [[0,0,-90]]
-        self.trans, self.trans2 = self.trans2, self.trans
+        # Rotate "turn-down" 90 degrees further clockwise
+        self.rotation = [[0,0,180]]
         self.postinit(**kwargs_copy)
 
-class ergodox_ft_space(ergodox_ft_base):
+class ergodox_ft_space(ergodox_ft_2UV_icon):
     """
-    Hackishly using a rotated horizontal 2U key for a "spacier" top surface
+    Using a rotated horizontal 2U key gives a "spacier" top surface
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -484,10 +487,8 @@ class ergodox_ft_space(ergodox_ft_base):
         self.key_length = KEY_UNIT*2-BETWEENSPACE
         self.dish_invert = True
         self.use_colorscad = False
-        self.key_rotation = [0,113.651,-90]
+        self.key_rotation = [0,-113.651,90]
         self.polygon_layers = 16 # For a smoother top
-        self.stem_locations = [[0,0,0], [12,0,0], [-12,0,0]]
-        self.stem_side_supports = [0,1,0,0]
         self.postinit(**kwargs_copy)
 
 KEYCAPS = [
@@ -587,7 +588,7 @@ KEYCAPS = [
     ergodox_ft_base(name="l_pgdn", legends=["PgDn", "End"],
                     font_sizes=[3, 3]),
     ergodox_ft_space(name="l_space"),
-    ergodox_ft_enter(name="l_enter", legends=["\uf149"]),
+    ergodox_ft_enter(name="l_enter", legends=["\uf3be"]),
     ergodox_ft_super(name="l_super", legends=["\uf197", "\uf0c9"]),
     ergodox_ft_text(name="l_alt", legends=["Alt"]),
 
