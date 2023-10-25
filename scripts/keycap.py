@@ -124,6 +124,7 @@ class Keycap(object):
             stem_snap_fit=False,
             stem_walls_inset=1.05,
             stem_walls_tolerance=0.2,
+            stem_color="white",
             homing_dot_length=0, # 0 means no "dot"
             homing_dot_width=1,
             homing_dot_x=0,
@@ -191,6 +192,7 @@ class Keycap(object):
         self.stem_snap_fit = stem_snap_fit
         self.stem_walls_inset = stem_walls_inset
         self.stem_walls_tolerance = stem_walls_tolerance
+        self.stem_color = stem_color
         self.homing_dot_length = homing_dot_length
         self.homing_dot_width = homing_dot_width
         self.homing_dot_x = homing_dot_x
@@ -326,6 +328,7 @@ class Keycap(object):
             f"STEM_SNAP_FIT={json.dumps(self.stem_snap_fit)}; "
             f"STEM_WALLS_INSET={self.stem_walls_inset}; "
             f"STEM_WALLS_TOLERANCE={self.stem_walls_tolerance}; "
+            f"STEM_COLOR={json.dumps(self.stem_color)}; "
             f"HOMING_DOT_LENGTH={self.homing_dot_length}; "
             f"HOMING_DOT_WIDTH={self.homing_dot_width}; "
             f"HOMING_DOT_X={self.homing_dot_x}; "

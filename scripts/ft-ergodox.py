@@ -625,7 +625,10 @@ if __name__ == "__main__":
         help='Forcibly re-render keycaps even if they already exist.')
     parser.add_argument('-s', '--skip-colorscad',
         required=False, action='store_true',
-        help='If True, avoid rendering with colorscad even if it is available (quicker, useful for testing)')
+        help='Avoid rendering with colorscad even if it is available (quicker, useful for testing)')
+    parser.add_argument('-t', '--transparent',
+        required=False, action='store_true',
+        help='Render stem in legend color (for shine-through keycaps)')
     parser.add_argument('-l', '--legends',
         required=False, action='store_true',
         help=f'If True, generate a separate set of stl files for legends.')
@@ -668,6 +671,8 @@ if __name__ == "__main__":
                             exists = True
                     if args.skip_colorscad:
                         keycap.use_colorscad = False
+                    if args.transparent:
+                        keycap.stem_color = "#505050"
                     if not exists:
                         print(Style.BRIGHT +
                             f"Rendering {args.out}/{keycap.name}.{keycap.file_type}..."
@@ -704,6 +709,8 @@ if __name__ == "__main__":
                     continue
             if args.skip_colorscad:
                 keycap.use_colorscad = False
+            if args.transparent:
+                keycap.stem_color = "#505050"
             print(Style.BRIGHT +
                 f"Rendering {args.out}/{keycap.name}.{keycap.file_type}..."
                 + Style.RESET_ALL)
@@ -728,6 +735,8 @@ if __name__ == "__main__":
                         continue
                 if args.skip_colorscad:
                     legend.use_colorscad = False
+                if args.transparent:
+                    legend.stem_color = "#505050"
                 print(Style.BRIGHT +
                     f"Rendering {args.out}/{legend.name}.{legend.file_type}..."
                     + Style.RESET_ALL)

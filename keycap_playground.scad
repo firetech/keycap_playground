@@ -165,6 +165,7 @@ STEM_SNAP_FIT = false; // If you want to print the stem as a separate part
 STEM_SIDES_WALL_THICKNESS = 0.8; // This will add additional thickness to the interior walls of the keycap that's rendered/exported with the "stem".  If you have legends on the front/back/sides of your keycap setting this to something like 0.65 will give those legends something to "sit" on when printing (so there's no mid-air printing or drooping).
 STEM_WALLS_INSET = 0; // Makes it so the stem walls don't go all the way to the bottom of the keycap; works just like STEM_INSET but for the walls (1.05 is good for snap-fit stems)
 STEM_WALLS_TOLERANCE = 0.0; // How much wiggle room the stem sides will get inside the keycap (0.2 is good for snap-fit stems)
+STEM_COLOR = "white"; // What color the stem should have
 
 // If you want "homing dots" for home row keys:
 HOMING_DOT_LENGTH = 0; // Set to something like "3" for a good, easy-to-feel "dot"
@@ -1284,7 +1285,7 @@ module handle_render(what, legends) {
             %key_using_globals(legends=legends);
         }
     } else if (what=="stem") {
-        color("#505050")
+        color(STEM_COLOR)
         if (KEY_PROFILE == "dsa") {
             DSA_stem(
                 stem_type=STEM_TYPE,
