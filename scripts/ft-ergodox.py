@@ -531,7 +531,7 @@ KEYCAPS = [
     ergodox_ft_base(name="l_T", legends=["T", "F10"]),
     ergodox_ft_lbracket(name="l_bracket", legends=["[", "", "{", "\uf55a"]),
 
-    ergodox_ft_rbracket(name="r_bracket", legends=["]", "", "}", "\uf149"]),
+    ergodox_ft_rbracket(name="r_bracket", legends=["]", "", "}", "\uf3be"]),
     ergodox_ft_wpm(name="r_Y", legends=["Y", "WPM 0"],),
     ergodox_ft_base(name="r_U", legends=["U", "4"]),
     ergodox_ft_base(name="r_I", legends=["I", "5"]),
