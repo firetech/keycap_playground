@@ -288,7 +288,7 @@ class ergodox_ft_2(ergodox_ft_multi):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.scale[2] = [0.85,1,1] # Squash it a bit
+        self.scale[2][0] = 0.85 # Squash it a bit
 
 class ergodox_ft_3(ergodox_ft_multi):
     """
@@ -384,7 +384,7 @@ class ergodox_ft_dash(ergodox_ft_1_5U):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.trans[2] = [2.8,-4.1,0] # _ needs to go down and to the right a bit
-        self.scale[2] = [0.8,1,3] # Also needs to be squished a bit
+        self.scale[2][0] = 0.8 # Also needs to be squished a bit
 
 class ergodox_ft_semicolon(ergodox_ft_multi):
     """
