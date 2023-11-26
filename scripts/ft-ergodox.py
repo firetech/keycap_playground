@@ -205,6 +205,49 @@ class ergodox_ft_front_icon(ergodox_ft_base):
         self.fonts[1] = "Font Awesome 6 Free:style=Solid"
         self.font_sizes[1] = 3.9
 
+class ergodox_ft_bl(ergodox_ft_front_icon):
+    """
+    For 1U with backlight controls, both icon and text label on front
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.scale = [
+            self.scale[0],
+            self.scale[1], # Front 1
+            self.scale[1], # Front 2
+        ]
+        self.fonts = [
+            self.fonts[0],
+            self.fonts[1], # Front 1
+            self.fonts[0], # Front 2
+        ]
+        self.font_sizes = [
+            self.font_sizes[0],
+            self.font_sizes[1], # Front 1
+            3.5,                # Front 2
+        ]
+        self.trans = [
+            self.trans[0],
+            [-2,self.trans[1][1],self.trans[1][2]], # Front 1
+            [2,self.trans[1][1],self.trans[1][2]],  # Front 2
+        ]
+        self.rotation = [
+            self.rotation[0],
+            self.rotation[1], # Front 1
+            self.rotation[1], # Front 2
+        ]
+
+class ergodox_ft_bl_icon(ergodox_ft_bl):
+    """
+    For 1U with backlight controls, two icons on front
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.fonts[2] = self.fonts[1]
+        self.font_sizes[2] = self.font_sizes[1]
+        self.trans[1][0] = -2.6
+        self.trans[2][0] = 2.6
+
 class ergodox_ft_text(ergodox_ft_base):
     """
     Ctrl, Del, etc. need to be downsized a smidge.
@@ -540,10 +583,10 @@ KEYCAPS = [
 
     # Row 4
     ergodox_ft_1_5U(name="l_shift", legends=[" ", "Shift", "", ""]),
-    ergodox_ft_front_icon(name="l_Z_bl", legends=["Z", "\uf0eb \uf205"]),
-    ergodox_ft_front_icon(name="l_X_bl", legends=["X", "\uf0eb -"]),
-    ergodox_ft_front_icon(name="l_C_bl", legends=["C", "\uf0eb +"]),
-    ergodox_ft_front_icon(name="l_V_bl", legends=["V", "\uf0eb \uf2f1"]),
+    ergodox_ft_bl_icon(name="l_Z_bl", legends=["Z", "\uf0eb", "\uf011"]),
+    ergodox_ft_bl(name="l_X_bl", legends=["X", "\uf0eb", "-"]),
+    ergodox_ft_bl(name="l_C_bl", legends=["C", "\uf0eb", "+"]),
+    ergodox_ft_bl_icon(name="l_V_bl", legends=["V", "\uf0eb", "\ue4bb"]),
     ergodox_ft_base(name="l_Z", legends=["Z"]), # For non-backlit keyboards
     ergodox_ft_base(name="l_X", legends=["X"]), # For non-backlit keyboards
     ergodox_ft_base(name="l_C", legends=["C"]), # For non-backlit keyboards
