@@ -168,14 +168,6 @@ class ergodox_ft_base(Keycap):
             self.homing_dot_z = -0.45
         self.postinit(**kwargs)
 
-class ergodox_ft_wpm(ergodox_ft_base):
-    """
-    Same as regular but with smaller front legends
-    """
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.font_sizes[1] = 2
-
 class ergodox_ft_icons(ergodox_ft_base):
     """
     For 1U with only icons
@@ -518,7 +510,7 @@ KEYCAPS = [
     ergodox_ft_lbracket(name="l_bracket", legends=["[", "", "{", "\uf55a"]),
 
     ergodox_ft_rbracket(name="r_bracket", legends=["]", "", "}", "\uf3be"]),
-    ergodox_ft_wpm(name="r_Y", legends=["Y", "WPM 0"],),
+    ergodox_ft_base(name="r_Y", legends=["Y", "W 0"],),
     ergodox_ft_base(name="r_U", legends=["U", "4"]),
     ergodox_ft_base(name="r_I", legends=["I", "5"]),
     ergodox_ft_base(name="r_O", legends=["O", "6"]),
@@ -538,7 +530,7 @@ KEYCAPS = [
                           homing_dot=True),
     ergodox_ft_front_icon(name="l_G", legends=["G", "\uf04b \uf04c"]),
 
-    ergodox_ft_wpm(name="r_H", legends=["H", "WPM ^"]),
+    ergodox_ft_base(name="r_H", legends=["H", "W ^"]),
     ergodox_ft_base(name="r_J", legends=["J", "1"], homing_dot=True),
     ergodox_ft_base(name="r_K", legends=["K", "2"]),
     ergodox_ft_base(name="r_L", legends=["L", "3"]),
@@ -560,7 +552,7 @@ KEYCAPS = [
     ergodox_ft_1_5UV(name="l_fn", legends=["Fn"]),
 
     ergodox_ft_1_5UV(name="r_fn", legends=["Fn"]),
-    ergodox_ft_wpm(name="r_N", legends=["N", "WPM"]),
+    ergodox_ft_base(name="r_N", legends=["N", "W ="]),
     ergodox_ft_base(name="r_M", legends=["M", "0"]),
     ergodox_ft_multi(name="r_comma", legends=[",", "", "<", ","]),
     ergodox_ft_multi(name="r_period", legends=[".", "", ">", "."]),
