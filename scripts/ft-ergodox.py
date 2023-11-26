@@ -314,7 +314,7 @@ class ergodox_ft_6(ergodox_ft_multi):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.font_sizes[2] = 5.8 # ^ symbol
-        self.trans[2] = [2.6,4.1,0]
+        self.trans[2] = [2.6,-1.5,0]
         self.fonts[3] = "Font Awesome 6 Free:style=Solid"
 
 class ergodox_ft_7(ergodox_ft_multi):
@@ -383,18 +383,18 @@ class ergodox_ft_dash(ergodox_ft_1_5U):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.trans[2] = [2.8,1.1,0] # _ needs to go down and to the right a bit
+        self.trans[2] = [2.8,-4.1,0] # _ needs to go down and to the right a bit
         self.scale[2] = [0.8,1,3] # Also needs to be squished a bit
 
-class ergodox_ft_semicolon(ergodox_ft_1_5U):
+class ergodox_ft_semicolon(ergodox_ft_multi):
     """
     The semicolon ends up being slightly higher than the colon but it looks
     better if the top dot in both is aligned.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.trans[0] = [-2.6,2.1,0]
-        self.trans[2] = [2.6,2.6,0]
+        self.trans[0] = [-2.6,-3.1,0]
+        self.trans[2] = [2.6,-2.6,0]
 
 class ergodox_ft_1_5UV(ergodox_ft_base):
     """
