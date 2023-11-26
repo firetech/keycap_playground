@@ -134,7 +134,7 @@ class ergodox_ft_base(Keycap):
         self.stem_type = "round_cherry"
         self.stem_inset = -0.5
         self.stem_walls_inset = 0
-        self.stem_inside_tolerance = 0.15
+        self.stem_inside_tolerance = 0.05
         self.stem_side_supports = [0,0,1,0]
         self.stem_locations = [[0,0,0]]
         # Because we do strange things we need legends bigger on the Z
