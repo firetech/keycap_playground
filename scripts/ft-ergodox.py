@@ -490,10 +490,17 @@ class ergodox_ft_2UV_icon(ergodox_ft_base):
         self.key_length = KEY_UNIT*2-BETWEENSPACE
         self.key_rotation = [0,-110.095,90]
         self.stem_locations = [[0,0,0], [12,0,0], [-12,0,0]]
-        self.rotation2 = self.rotation
-        self.rotation = [[0,0,-90]]
-        self.trans, self.trans2 = self.trans2, self.trans
-        self.trans2[1] = [0,0,-2.8]
+        self.rotation, self.rotation2 = self.rotation2, [[
+            self.rotation[0][1],
+            -self.rotation[0][0],
+            self.rotation[0][2],
+        ]]
+        self.rotation[0][2] = -90
+        self.trans, self.trans2 = self.trans2, [[
+            self.trans[0][1],
+            self.trans[0][0],
+            self.trans[0][2],
+        ]]
         self.fonts = ["Font Awesome 6 Free:style=Solid"]
         self.font_sizes = [5]
         self.stem_side_supports = [1,0,0,0]
@@ -507,7 +514,11 @@ class ergodox_ft_enter(ergodox_ft_2UV_icon):
         super().__init__(**kwargs)
         kwargs_copy = deepcopy(kwargs) # Because self.trans[0] updates in place
         # Rotate "turn-down" 90 degrees further clockwise
-        self.rotation = [[0,0,180]]
+        self.rotation = [[
+            self.rotation[0][0],
+            self.rotation[0][1],
+            self.rotation[0][2] - 90,
+        ]]
         self.postinit(**kwargs_copy)
 
 class ergodox_ft_space(ergodox_ft_2UV_icon):
